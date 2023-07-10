@@ -21,24 +21,43 @@ namespace LinqExercise
              */
 
             //TODO: Print the Sum of numbers
-
+            Console.WriteLine(numbers.Sum());
+            
             //TODO: Print the Average of numbers
-
+            Console.WriteLine((float)numbers.Sum() / numbers.Length);
+            
             //TODO: Order numbers in ascending order and print to the console
-
+            Console.WriteLine(string.Join(", ", numbers.OrderBy(x => x).ToArray()));
+            
             //TODO: Order numbers in descending order and print to the console
-
+            Console.WriteLine(string.Join(", ", numbers.OrderByDescending(x => x).ToArray()));
+            
             //TODO: Print to the console only the numbers greater than 6
+            Console.WriteLine(string.Join(", ", numbers.Where(x => x > 6)));
 
             //TODO: Order numbers in any order (ascending or desc) but only print 4 of them **foreach loop only!**
+            var numSorted = numbers.OrderBy(x => x);
+            foreach (var num in numSorted.Take(4))
+            {
+                Console.WriteLine(num);
+            }
 
             //TODO: Change the value at index 4 to your age, then print the numbers in descending order
+            numbers[4] = 24;
+            Console.WriteLine(string.Join(", ", numbers.OrderByDescending(x => x).ToArray()));
 
             // List of employees ****Do not remove this****
             var employees = CreateEmployees();
 
             //TODO: Print all the employees' FullName properties to the console only if their FirstName starts with a C OR an S and order this in ascending order by FirstName.
+            var sortedNames = employees.Where(employed 
+                => char.ToUpper(employed.FirstName[0]) == 'C' || char.ToUpper(employed.FirstName[0]) == 'S')
+                .OrderBy(employed => employed.FirstName);
 
+            foreach (var person in sortedNames)
+            {
+                Console.WriteLine(person.FullName);
+            }
             //TODO: Print all the employees' FullName and Age who are over the age 26 to the console and order this by Age first and then by FirstName in the same result.
 
             //TODO: Print the Sum and then the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
@@ -47,8 +66,6 @@ namespace LinqExercise
 
 
             Console.WriteLine();
-
-            Console.ReadLine();
         }
 
         #region CreateEmployeesMethod
