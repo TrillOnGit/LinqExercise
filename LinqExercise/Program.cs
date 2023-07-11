@@ -59,15 +59,21 @@ namespace LinqExercise
                 Console.WriteLine(person.FullName);
             }
             //TODO: Print all the employees' FullName and Age who are over the age 26 to the console and order this by Age first and then by FirstName in the same result.
+            var ageSort = employees.Where(x => x.Age > 26).OrderBy(x => x.Age).ThenBy(x => x.FirstName);
+            foreach (var person in ageSort)
+            {
+                Console.WriteLine(person.FullName);
+            }
 
             //TODO: Print the Sum and then the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
+            var yoeEmpRange = employees.Where(x => x.Age > 35 && x.YearsOfExperience <= 10);
+            Console.WriteLine($"YOE Sum: {yoeEmpRange.Sum(x => x.YearsOfExperience)}, YOE Average: {yoeEmpRange.Sum(x => x.YearsOfExperience) / yoeEmpRange.Count()}");
 
             //TODO: Add an employee to the end of the list without using employees.Add()
 
-
-            Console.WriteLine();
+            employees = employees.Append(new Employee("Austin", "Funk", 24, 19)).ToList();  
+            Console.WriteLine(string.Join(", ", employees.Select(x => x.FullName)));
         }
-
         #region CreateEmployeesMethod
         private static List<Employee> CreateEmployees()
         {
